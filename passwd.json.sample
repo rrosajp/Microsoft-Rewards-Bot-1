@@ -1,0 +1,16 @@
+{
+    "accounts":[
+        {
+            "id":1,
+            "name":<name>,
+            "email":"example@example.org",
+            "passwd":"mypassword"
+        },
+        {
+            "id":2,
+            "name":<name>,
+            "email":"example@example.org",
+            "passwd": "mypassword"
+        }
+    ]
+}
