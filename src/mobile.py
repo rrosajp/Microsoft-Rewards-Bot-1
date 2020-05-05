@@ -30,7 +30,7 @@ def mobile(name, nhd, num):
     chrome_options.add_experimental_option('useAutomationExtension', False)
     driver = webdriver.Chrome(executable_path=chromedriver, chrome_options=chrome_options)
     driver.get('https://account.microsoft.com/')
-    time.sleep(5)
+    time.sleep(2)
     try:
         for microsoft in pickle.load(open("./cookie/" + name + "/microsoft.pkl", "rb")):
             if 'expiry' in microsoft:
@@ -38,7 +38,7 @@ def mobile(name, nhd, num):
             driver.add_cookie(microsoft)
         time.sleep(2)
         driver.get('https://account.microsoft.com/?ref=MeControl')
-        time.sleep(5)
+        time.sleep(2)
         driver.get('https://www.bing.com/')
         for bing in pickle.load(open("./cookie/" + name + "/bing.pkl", "rb")):
             if 'expiry' in bing:
@@ -46,7 +46,7 @@ def mobile(name, nhd, num):
             driver.add_cookie(bing)
         time.sleep(2)
         driver.refresh()
-        time.sleep(5)
+        time.sleep(2)
     except Exception as e:
         print(e)
         driver.quit()

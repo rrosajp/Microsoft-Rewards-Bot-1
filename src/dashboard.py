@@ -13,7 +13,7 @@ def dashboard(name):
     driver = webdriver.Chrome(executable_path=chromedriver, options=chrome_options)
 
     driver.get('https://www.bing.com/')
-    time.sleep(5)
+    time.sleep(2)
     try:
         for bing in pickle.load(open("./cookie/" + name + "/bing.pkl", "rb")):
             if 'expiry' in bing:
@@ -21,7 +21,7 @@ def dashboard(name):
             driver.add_cookie(bing)
         time.sleep(2)
         driver.refresh()
-        time.sleep(5)
+        time.sleep(2)
         driver.get('https://account.microsoft.com/')
         for microsoft in pickle.load(open("./cookie/" + name + "/microsoft.pkl", "rb")):
             if 'expiry' in microsoft:

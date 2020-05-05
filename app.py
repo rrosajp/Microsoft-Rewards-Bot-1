@@ -2,6 +2,9 @@ import time
 import os
 import json
 import argparse
+import re
+import sys
+from signal import signal, SIGINT
 
 from src.cookie_saver import cookie_saver
 from src.mobile import mobile
@@ -13,6 +16,18 @@ parser.add_argument('-nhd', action='store_true', dest='nhd_stt', default=False, 
 
 args = parser.parse_args()
 nhd = args.nhd_stt
+
+def clear(num):
+    for i in range(num):
+        sys.stdout.write("\033[F")
+        sys.stdout.write("\033[K")
+
+def handler(ln, err):
+     clear(1)
+     print("Good Bye !!")
+     sys.exit(0)
+
+signal(SIGINT, handler)
 
 def getJSON(file):
     with open(file, 'r') as fp:
@@ -27,34 +42,28 @@ for i in enumerate(accounts):
     name = x["name"]
     email = x["email"]
     passwd = x["passwd"]
-    
-    try:
-        os.mkdir("./cookie")
-    except Exception:
-        print("Cookie folder already exist...")
-    try:
-        os.mkdir("./cookie/" + name)
-    except Exception:
-        print("Cookie folder for " + name + " already exist...")
-    try:
-        os.remove("./cookie/" + name + "/bing.pkl")
-    except Exception:
-        print("Bing cookie for " + name +" doesn't exist...")
-    try:
-        os.remove("./cookie/" + name + "/microsoft.pkl")
-    except Exception:
-        print("Microsoft cookie for " + name +" doesn't exist...")
+
+    if not(os.path.exists("cookie")):
+        os.mkdir("cookie")
+    if not(os.path.exists(os.path.join("cookie", name))):
+        os.mkdir(os.path.join("cookie", name))
+    if(os.path.exists(os.path.join("cookie", name, "bing.pkl"))):
+        os.remove(os.path.join("cookie", name, "bing.pkl"))
+    if(os.path.exists(os.path.join("cookie", name, "microsoft.pkl"))):
+        os.remove(os.path.join("cookie", name, "microsoft.pkl"))
 
     cookie_saver(email, passwd, name, nhd)
-    mobile(name, nhd, 20)
-    pc(name, nhd, 30)
+    mobile(name, nhd, 22)
+    pc(name, nhd, 32)
 
 time.sleep(3)
 
 def dash():
     print("Do you want to show dashboard for:")
     res = []
+    acc = 0
     for i in enumerate(accounts):
+        acc += 1
         data1 = str(i[1]).replace("\'", "\"")
         x1 = json.loads(data1)
         id = x1["id"]
@@ -65,15 +74,18 @@ def dash():
         res.append(name1)
     print("or exit [E/e]")
     q = input(">>> ")
-    try:
-        choosen = res[int(q)-1]
-        print("Your choice is " + choosen)
-        dashboard(choosen)
-        dash()
-    except Exception:
-        if(q == "e" or q == "E"):
-            exit()
+    if(re.match("\d", q)):
+        if(int(q)<=acc and int(q)>=1):
+            choosen = res[int(q)-1]
+            print("Your choice is " + choosen)
+            dashboard(choosen)
+            dash()
         else:
             print("Error.. Trying one more time...")
             dash()
+    elif(q == "e" or q == "E"):
+        exit()
+    else:
+        print("Error.. Trying one more time...")
+        dash()
 dash()

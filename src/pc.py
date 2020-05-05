@@ -25,7 +25,7 @@ def pc(name, nhd, num):
         chrome_options.add_argument('--window-size=1080x720')
     driver = webdriver.Chrome(executable_path=chromedriver, chrome_options=chrome_options)
     driver.get('https://account.microsoft.com/')
-    time.sleep(5)
+    time.sleep(2)
     try:
         for microsoft in pickle.load(open("./cookie/" + name + "/microsoft.pkl", "rb")):
             if 'expiry' in microsoft:
@@ -33,20 +33,23 @@ def pc(name, nhd, num):
             driver.add_cookie(microsoft)
         time.sleep(2)
         driver.refresh()
-        time.sleep(5)
+        time.sleep(2)
         driver.get('https://www.bing.com/')
+        time.sleep(2)
         for bing in pickle.load(open("./cookie/" + name + "/bing.pkl", "rb")):
             if 'expiry' in bing:
                 del bing['expiry']
             driver.add_cookie(bing)
         time.sleep(2)
         driver.refresh()
-        time.sleep(5)
+        time.sleep(2)
     except Exception as e:
         print(e)
         driver.quit()
 
     url_base = 'http://www.bing.com/search?q='
+    
+    time.sleep(5)
 
     for num, word in enumerate(words_list):
         print('{0}. URL : {1}'.format(str(num + 1), url_base + word))
