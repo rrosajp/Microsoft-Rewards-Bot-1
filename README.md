@@ -2,7 +2,7 @@
 
 ## How to run it
 
-First, install ```requirements.txt``` and Google Chrome.
+First, install ```requirements.txt``` and Google Chrome (version 83).
 
 ```
 pip install -r requirements.txt

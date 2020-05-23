@@ -2,3 +2,4 @@ cookie/
 src/__pycache__/
 __pycache__
 passwd.json
+dash.py

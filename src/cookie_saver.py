@@ -27,7 +27,6 @@ def cookie_saver(email, passwd, name, nhd):
             driver.find_element_by_xpath(xpath)
         except NoSuchElementException:
             return False
-        return True
     driver.get('https://login.live.com')
     time.sleep(2)
     try:
@@ -51,7 +50,7 @@ def cookie_saver(email, passwd, name, nhd):
         time.sleep(5)
         pickle.dump( driver.get_cookies() , open("./cookie/" + name + "/bing.pkl","wb"))
         time.sleep(5)
-        if(check_exists_by_xpath("//*[@id='id_s']")):
+        if not (check_exists_by_xpath("//*[@id='id_s']") == False):
             driver.find_element_by_xpath("//*[@id='id_s']").click()
             time.sleep(2)
             driver.get('https://www.bing.com')
