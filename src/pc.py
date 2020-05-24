@@ -16,13 +16,23 @@ def pc(name, nhd, num):
         words_list = random.sample(json.loads(data)['data'], num)
         print('{0} words selected from {1}'.format(len(words_list), "words_list.json"))
     warnings.filterwarnings("ignore", category=DeprecationWarning)
-    chromedriver = "./driver/chromedriver"
     chrome_options = Options()
     chrome_options.add_argument('--start-maximized')
     if(nhd==False):
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--window-size=1080x720')
+        
+    if(platform == "linux" or platform == "linux2" or platform == "linux3"):
+        chromedriver = "./driver/chromedriver_linux"
+    elif(platform == "darwin"):
+        chromedriver = "./driver/chromedriver_mac"
+    elif(platform == "win32"):
+        chromedriver = "./driver/chromedriver_win.exe"
+    else:
+        print("Your os is not compatible with MS Rewards Bot")
+        exit()
+        
     driver = webdriver.Chrome(executable_path=chromedriver, chrome_options=chrome_options)
     driver.get('https://account.microsoft.com/')
     time.sleep(2)

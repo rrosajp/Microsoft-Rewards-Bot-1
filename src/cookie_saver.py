@@ -5,6 +5,7 @@ import argparse
 import json
 import warnings
 
+from sys import platform
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
@@ -14,14 +15,25 @@ def cookie_saver(email, passwd, name, nhd):
     print("Cookie_saver is loading for " + name + "...")
 
     warnings.filterwarnings("ignore", category=DeprecationWarning)
-    chromedriver = "./driver/chromedriver"
     chrome_options = Options()
     chrome_options.add_argument('--start-maximized')
     if(nhd==False):
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--window-size=1080x720')
+    
+    if(platform == "linux" or platform == "linux2" or platform == "linux3"):
+        chromedriver = "./driver/chromedriver_linux"
+    elif(platform == "darwin"):
+        chromedriver = "./driver/chromedriver_mac"
+    elif(platform == "win32"):
+        chromedriver = "./driver/chromedriver_win.exe"
+    else:
+        print("Your os is not compatible with MS Rewards Bot")
+        exit()
+        
     driver = webdriver.Chrome(executable_path=chromedriver, chrome_options=chrome_options)
+        
     def check_exists_by_xpath(xpath):
         try:
             driver.find_element_by_xpath(xpath)

@@ -7,9 +7,19 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 def dashboard(name):
-    chromedriver = "./driver/chromedriver"
     chrome_options = Options()
     chrome_options.add_argument('--start-maximized')
+    
+    if(platform == "linux" or platform == "linux2" or platform == "linux3"):
+        chromedriver = "./driver/chromedriver_linux"
+    elif(platform == "darwin"):
+        chromedriver = "./driver/chromedriver_mac"
+    elif(platform == "win32"):
+        chromedriver = "./driver/chromedriver_win.exe"
+    else:
+        print("Your os is not compatible with MS Rewards Bot")
+        exit()
+        
     driver = webdriver.Chrome(executable_path=chromedriver, options=chrome_options)
 
     driver.get('https://www.bing.com/')
