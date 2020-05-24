@@ -6,7 +6,6 @@ First, install ```requirements.txt``` and Google Chrome (version 83).
 
 ```
 pip install -r requirements.txt
-sudo apt-get install google-chrome
 ```
 
 - Run ```app.py``` to start the bot
