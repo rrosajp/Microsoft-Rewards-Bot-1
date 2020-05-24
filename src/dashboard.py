@@ -2,6 +2,7 @@ import time
 import pickle
 
 import requests
+from sys import platform
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
