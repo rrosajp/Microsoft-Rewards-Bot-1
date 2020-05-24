@@ -1,6 +1,6 @@
 # Microsoft Rewards BOT 
 
-## How to run it
+## How to use it
 
 First, install ```requirements.txt``` and Google Chrome (version 83).
 
@@ -18,14 +18,14 @@ sudo apt-get install google-chrome
     "accounts":[
         {
             "id":1,
-            "name":<name>,
-            "email":"example@example.org",
-            "passwd":"mypassword"
+            "name": "a-sample-name",
+            "email": "example@example.org",
+            "passwd": "mypassword"
         },
         {
             "id":2,
-            "name":<name>,
-            "email":"example@example.org",
+            "name": "a-sample-name",
+            "email": "example@example.org",
             "passwd": "mypassword"
         }
     ]

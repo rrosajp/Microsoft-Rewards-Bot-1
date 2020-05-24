@@ -2,13 +2,13 @@
     "accounts":[
         {
             "id":1,
-            "name":<name>,
+            "name":"a-sample-name",
             "email":"example@example.org",
             "passwd":"mypassword"
         },
         {
             "id":2,
-            "name":<name>,
+            "name":"a-sample-name",
             "email":"example@example.org",
             "passwd": "mypassword"
         }
