@@ -30,15 +30,15 @@ def handler(ln, err):
 signal(SIGINT, handler)
 
 def getJSON(file):
-    if(os.path.exists("./.passwd.json")):
+    if(os.path.exists("passwd.json")):
         try:
             with open(file, 'r') as fp:
                 return json.load(fp)
         except Exception as e:
-            print("Your .passwd.json as bad format")
+            print("Your passwd.json as bad format")
             exit()
     else:
-        print("Please create a .passwd.json")
+        print("Please create a passwd.json")
         exit()
         
 app = getJSON('./passwd.json')
